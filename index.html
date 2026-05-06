@@ -3,116 +3,291 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AS GFA Banner Preview – KW20</title>
+    <title>Banner Preview – antoni</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
         body { 
-            background: #1a1a1a; 
-            font-family: Arial, sans-serif; 
-            padding: 40px 20px;
-            color: white;
+            background: #ffffff;
+            font-family: 'Inter', Helvetica, Arial, sans-serif;
+            color: #000000;
         }
-        
-        header {
-            text-align: center;
-            margin-bottom: 50px;
+
+        /* Header */
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: #ffffff;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            z-index: 100;
         }
-        
-        header h1 { 
-            font-size: 24px; 
-            font-weight: bold;
-            margin-bottom: 8px;
+
+        .site-header .logo {
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: lowercase;
+            color: #000;
         }
-        
-        header p {
+
+        .site-header .meta {
+            font-size: 11px;
+            font-weight: 400;
             color: #999;
-            font-size: 14px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        /* Main content */
+        main {
+            padding: 100px 40px 80px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Page title */
+        .page-title {
+            margin-bottom: 60px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid #000;
+        }
+
+        .page-title h1 {
+            font-size: 28px;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            margin-bottom: 6px;
+        }
+
+        .page-title p {
+            font-size: 12px;
+            color: #999;
+            font-weight: 400;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: baseline;
+            gap: 16px;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .section-number {
+            font-size: 11px;
+            color: #999;
+            font-weight: 400;
+            letter-spacing: 0.1em;
         }
 
         h2 {
-            font-size: 14px;
-            color: #999;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.06em;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 30px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #333;
+            color: #000;
         }
 
-        .section {
-            margin-bottom: 30px;
-        }
-        
+        /* Banner grid */
         .banner-grid { 
             display: flex; 
             flex-wrap: nowrap;
             gap: 40px;
             align-items: flex-start;
             overflow-x: auto;
-            padding-bottom: 20px;
-        }
-        
-        .banner-item { 
-            text-align: center;
-            flex-shrink: 0;
-        }
-        
-        .banner-item p { 
-            margin-bottom: 12px; 
-            color: #999; 
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        iframe { 
-            border: none;
-            display: block;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            padding-bottom: 8px;
         }
 
-        #content {
+        .banner-item { 
+            text-align: left;
+            flex-shrink: 0;
+        }
+
+        .banner-label {
+            margin-bottom: 10px;
+            font-size: 11px;
+            font-weight: 400;
+            color: #999;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        iframe { 
+            border: 1px solid #e0e0e0;
+            display: block;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid #e0e0e0;
+            padding: 24px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        footer p {
+            font-size: 11px;
+            color: #999;
+            letter-spacing: 0.05em;
+        }
+
+        #content { display: none; }
+
+        /* Login overlay */
+        .login-overlay {
+            position: fixed;
+            inset: 0;
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            z-index: 999;
+        }
+
+        .login-overlay .logo {
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: lowercase;
+            margin-bottom: 8px;
+        }
+
+        .login-overlay p {
+            font-size: 12px;
+            color: #999;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .login-overlay input {
+            border: 1px solid #000;
+            padding: 12px 16px;
+            font-size: 13px;
+            font-family: inherit;
+            width: 280px;
+            outline: none;
+            letter-spacing: 0.02em;
+        }
+
+        .login-overlay input:focus {
+            border-color: #000;
+            box-shadow: 0 0 0 2px rgba(0,0,0,0.08);
+        }
+
+        .login-overlay button {
+            background: #000;
+            color: #fff;
+            border: none;
+            padding: 12px 32px;
+            font-size: 12px;
+            font-family: inherit;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            cursor: pointer;
+            width: 280px;
+        }
+
+        .login-overlay button:hover {
+            background: #333;
+        }
+
+        .login-error {
+            font-size: 11px;
+            color: #cc0000;
+            letter-spacing: 0.04em;
             display: none;
         }
     </style>
 </head>
 <body>
 
+<!-- Login -->
+<div class="login-overlay" id="loginOverlay">
+    <div class="logo">antoni</div>
+    <p>Banner Preview</p>
+    <input type="password" id="passwordInput" placeholder="Passwort" 
+           onkeydown="if(event.key==='Enter') checkPassword()">
+    <button onclick="checkPassword()">Zugang</button>
+    <span class="login-error" id="loginError">Falsches Passwort</span>
+</div>
+
+<!-- Content -->
 <div id="content">
 
-    <header>
-        <h1>AS GFA Banner Preview</h1>
-        <p>KW20</p>
+    <header class="site-header">
+        <span class="logo">antoni</span>
+        <span class="meta">Banner Preview</span>
     </header>
 
-    <div class="section">
-        <h2>KW20</h2>
-        <div class="banner-grid">
+    <main>
 
-            <div class="banner-item">
-                <p>HPA – 300 × 600</p>
-                <iframe src="300x600/260415_AS_GFA_Banner_300x600_KW20.html" 
-                        width="300" height="600" scrolling="no"></iframe>
-            </div>
-
-            <div class="banner-item">
-                <p>MMR – 300 × 250</p>
-                <iframe src="300x250/260415_AS_GFA_Banner_300x250_KW20.html" 
-                        width="300" height="250" scrolling="no"></iframe>
-            </div>
-
+        <div class="page-title">
+            <h1>AS GFA – KW20</h1>
+            <p>Display Banner · 2026</p>
         </div>
-    </div>
+
+        <div class="section">
+            <div class="section-header">
+                <span class="section-number">01</span>
+                <h2>KW20</h2>
+            </div>
+            <div class="banner-grid">
+
+                <div class="banner-item">
+                    <div class="banner-label">HPA – 300 × 600</div>
+                    <iframe src="300x600/260415_AS_GFA_Banner_300x600_KW20.html" 
+                            width="300" height="600" scrolling="no"></iframe>
+                </div>
+
+                <div class="banner-item">
+                    <div class="banner-label">MMR – 300 × 250</div>
+                    <iframe src="300x250/260415_AS_GFA_Banner_300x250_KW20.html" 
+                            width="300" height="250" scrolling="no"></iframe>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        <p>© 2026 antoni GmbH</p>
+        <p>Vertraulich – nur zur internen Verwendung</p>
+    </footer>
 
 </div>
 
 <script>
-var passwort = prompt("Bitte Passwort eingeben:");
-if (passwort === "aldiMini2026") {
-    document.getElementById("content").style.display = "block";
-} else {
-    document.body.innerHTML = "<div style='color:white;text-align:center;margin-top:200px;font-family:Arial'><h1>Zugang verweigert</h1><p style='margin-top:20px;color:#999'>Bitte Seite neu laden und korrektes Passwort eingeben.</p></div>";
+function checkPassword() {
+    var input = document.getElementById('passwordInput').value;
+    if (input === 'aldiMini2026') {
+        document.getElementById('loginOverlay').style.display = 'none';
+        document.getElementById('content').style.display = 'block';
+    } else {
+        document.getElementById('loginError').style.display = 'block';
+        document.getElementById('passwordInput').value = '';
+    }
 }
 </script>
 
