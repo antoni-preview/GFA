@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banner Preview – antoni</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
+        body { 
+            background: #ffffff;
+            font-family: 'Inter', Helvetica, Arial, sans-serif;
+            color: #000000;
+        }
+
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: #ffffff;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            z-index: 100;
+        }
+
+        .site-header .logo {
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: lowercase;
+            color: #000;
+        }
+
+        .site-header .meta {
+            font-size: 11px;
+            font-weight: 400;
+            color: #999;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        main {
+            padding: 100px 40px 80px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .page-title {
+            margin-bottom: 60px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid #000;
+        }
+
+        .page-title h1 {
+            font-size: 28px;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            margin-bottom: 6px;
+        }
+
+        .page-title p {
+            font-size: 12px;
+            color: #999;
+            font-weight: 400;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .section-header-left {
+            display: flex;
+            align-items: baseline;
+            gap: 16px;
+        }
+
+        .section-number {
+            font-size: 11px;
+            color: #999;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+        }
+
+        h2 {
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: #000;
+        }
+
+        .replay-btn {
+            background: none;
+            border: 1px solid #000;
+            padding: 6px 14px;
+            font-size: 11px;
+            font-family: inherit;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            cursor: pointer;
+            color: #000;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.15s, color 0.15s;
+        }
+
+        .replay-btn:hover {
+            background: #000;
+            color: #fff;
+        }
+
+        .replay-btn svg {
+            width: 11px;
+            height: 11px;
+            fill: currentColor;
+        }
+
+        .replay-all-btn {
+            background: #000;
+            color: #fff;
+            border: none;
+            padding: 8px 18px;
+            font-size: 11px;
+            font-family: inherit;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.15s;
+        }
+
+        .replay-all-btn:hover { background: #333; }
+
+        .replay-all-btn svg {
+            width: 11px;
+            height: 11px;
+            fill: currentColor;
+        }
+
+        .banner-grid { 
+            display: flex; 
+            flex-wrap: nowrap;
+            gap: 40px;
+            align-items: flex-start;
+            overflow-x: auto;
+            padding-bottom: 8px;
+        }
+
+        .banner-item { 
+            text-align: left;
+            flex-shrink: 0;
+        }
+
+        .banner-label {
+            margin-bottom: 10px;
+            font-size: 11px;
+            font-weight: 400;
+            color: #999;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        iframe { 
+            border: 1px solid #e0e0e0;
+            display: block;
+        }
+
+        footer {
+            border-top: 1px solid #e0e0e0;
+            padding: 24px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        footer p {
+            font-size: 11px;
+            color: #999;
+            letter-spacing: 0.05em;
+        }
+
+        #content { display: none; }
+
+        .login-overlay {
+            position: fixed;
+            inset: 0;
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            z-index: 999;
+        }
+
+        .login-overlay .logo {
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: lowercase;
+            margin-bottom: 8px;
+        }
+
+        .login-overlay p {
+            font-size: 12px;
+            color: #999;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .login-overlay input {
+            border: 1px solid #000;
+            padding: 12px 16px;
+            font-size: 13px;
+            font-family: inherit;
+            width: 280px;
+            outline: none;
+            letter-spacing: 0.02em;
+        }
+
+        .login-overlay input:focus {
+            border-color: #000;
+            box-shadow: 0 0 0 2px rgba(0,0,0,0.08);
+        }
+
+        .login-overlay button {
+            background: #000;
+            color: #fff;
+            border: none;
+            padding: 12px 32px;
+            font-size: 12px;
+            font-family: inherit;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            cursor: pointer;
+            width: 280px;
+        }
+
+        .login-overlay button:hover { background: #333; }
+
+        .login-error {
+            font-size: 11px;
+            color: #cc0000;
+            letter-spacing: 0.04em;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Login -->
+<div class="login-overlay" id="loginOverlay">
+    <div class="logo">antoni</div>
+    <p>Banner Preview</p>
+    <input type="password" id="passwordInput" placeholder="Passwort"
+           onkeydown="if(event.key==='Enter') checkPassword()">
+    <button onclick="checkPassword()">Weiter</button>
+    <span class="login-error" id="loginError">Falsches Passwort!</span>
+</div>
+
+<!-- Content -->
+<div id="content">
+
+    <header class="site-header">
+        <span class="logo">antoni</span>
+        <div style="display:flex; align-items:center; gap:24px;">
+            <span class="meta">Banner Preview</span>
+            <button class="replay-all-btn" onclick="replayAll()">
+                <svg viewBox="0 0 24 24"><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/></svg>
+                Alle wiederholen
+            </button>
+        </div>
+    </header>
+
+    <main>
+
+        <div class="page-title">
+            <h1>AS GFA – KW21</h1>
+            <p>Banner Preview · 2026</p>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <div class="section-header-left">
+                    <span class="section-number">01</span>
+                    <h2>KW21</h2>
+                </div>
+                <button class="replay-btn" onclick="replaySection('section-01')">
+                    <svg viewBox="0 0 24 24"><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/></svg>
+                    Wiederholen
+                </button>
+            </div>
+            <div class="banner-grid" id="section-01">
+
+                <div class="banner-item">
+                    <div class="banner-label">HPA – 300 × 250</div>
+                    <iframe src="600x500_Quality_KW21/260415_AS_GFA_Banner_600x500_KW21.html"
+                            width="300" height="250" scrolling="no"></iframe>
+                </div>
+
+                <div class="banner-item">
+                    <div class="banner-label">MMR – 300 × 600</div>
+                    <iframe src="600x1200_Quality_KW21/260415_AS_GFA_Banner_600x1200_KW21.html"
+                            width="300" height="600" scrolling="no"></iframe>
+                </div>
+
+            </div>
+        </div>
+        
+        <div class="section">
+            <div class="section-header">
+                <div class="section-header-left">
+                    <span class="section-number">02</span>
+                    <h2>KW21</h2>
+                </div>
+                <button class="replay-btn" onclick="replaySection('section-02')">
+                    <svg viewBox="0 0 24 24"><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/></svg>
+                    Wiederholen
+                </button>
+            </div>
+            <div class="banner-grid" id="section-02">
+
+                <div class="banner-item">
+                    <div class="banner-label">HPA – 300 × 250</div>
+                    <iframe src="600x500_KW21/260415_AS_GFA_Banner_600x500_KW21.html"
+                            width="300" height="250" scrolling="no"></iframe>
+                </div>
+
+                <div class="banner-item">
+                    <div class="banner-label">MMR – 300 × 600</div>
+                    <iframe src="600x1200_KW21/260415_AS_GFA_Banner_Quality_600x1200_KW21.html"
+                            width="300" height="600" scrolling="no"></iframe>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2026 antoni GmbH</p>
+        <p>Vertraulich – nur zur internen Verwendung</p>
+    </footer>
+
+</div>
+
+<script>
+async function checkPassword() {
+    var input = document.getElementById('passwordInput').value;
+    var encoded = new TextEncoder().encode(input);
+    var hashBuffer = await crypto.subtle.digest('SHA-256', encoded);
+    var hashArray = Array.from(new Uint8Array(hashBuffer));
+    var hashHex = hashArray.map(function(b) {
+        return b.toString(16).padStart(2, '0');
+    }).join('');
+
+    var correctHash = '4691c5e8600dd5b06e173279b17349b7cacb3d72eb6cf72936d27e63cbdd04c7';
+
+    if (hashHex === correctHash) {
+        document.getElementById('loginOverlay').style.display = 'none';
+        document.getElementById('content').style.display = 'block';
+    } else {
+        document.getElementById('loginError').style.display = 'block';
+        document.getElementById('passwordInput').value = '';
+    }
+}
+
+function replaySection(sectionId) {
+    var section = document.getElementById(sectionId);
+    var iframes = section.querySelectorAll('iframe');
+    iframes.forEach(function(iframe) {
+        var src = iframe.src;
+        iframe.src = '';
+        iframe.src = src;
+    });
+}
+
+function replayAll() {
+    var iframes = document.querySelectorAll('#content iframe');
+    iframes.forEach(function(iframe) {
+        var src = iframe.src;
+        iframe.src = '';
+        iframe.src = src;
+    });
+}
+</script>
+
+</body>
+</html>
