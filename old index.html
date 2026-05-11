@@ -203,85 +203,10 @@
         }
 
         #content { display: none; }
-
-        .login-overlay {
-            position: fixed;
-            inset: 0;
-            background: #fff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 24px;
-            z-index: 999;
-        }
-
-        .login-overlay .logo {
-            font-size: 18px;
-            font-weight: 600;
-            letter-spacing: 0.08em;
-            text-transform: lowercase;
-            margin-bottom: 8px;
-        }
-
-        .login-overlay p {
-            font-size: 12px;
-            color: #999;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-        }
-
-        .login-overlay input {
-            border: 1px solid #000;
-            padding: 12px 16px;
-            font-size: 13px;
-            font-family: inherit;
-            width: 280px;
-            outline: none;
-            letter-spacing: 0.02em;
-        }
-
-        .login-overlay input:focus {
-            border-color: #000;
-            box-shadow: 0 0 0 2px rgba(0,0,0,0.08);
-        }
-
-        .login-overlay button {
-            background: #000;
-            color: #fff;
-            border: none;
-            padding: 12px 32px;
-            font-size: 12px;
-            font-family: inherit;
-            font-weight: 500;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            cursor: pointer;
-            width: 280px;
-        }
-
-        .login-overlay button:hover { background: #333; }
-
-        .login-error {
-            font-size: 11px;
-            color: #cc0000;
-            letter-spacing: 0.04em;
-            display: none;
-        }
     </style>
 </head>
 <body>
-
-<!-- Login -->
-<div class="login-overlay" id="loginOverlay">
-    <div class="logo">antoni</div>
-    <p>Banner Preview</p>
-    <input type="password" id="passwordInput" placeholder="Passwort"
-           onkeydown="if(event.key==='Enter') checkPassword()">
-    <button onclick="checkPassword()">Weiter</button>
-    <span class="login-error" id="loginError">Falsches Passwort!</span>
-</div>
-
+    
 <!-- Content -->
 <div id="content">
 
@@ -368,26 +293,6 @@
 </div>
 
 <script>
-async function checkPassword() {
-    var input = document.getElementById('passwordInput').value;
-    var encoded = new TextEncoder().encode(input);
-    var hashBuffer = await crypto.subtle.digest('SHA-256', encoded);
-    var hashArray = Array.from(new Uint8Array(hashBuffer));
-    var hashHex = hashArray.map(function(b) {
-        return b.toString(16).padStart(2, '0');
-    }).join('');
-
-    var correctHash = '4691c5e8600dd5b06e173279b17349b7cacb3d72eb6cf72936d27e63cbdd04c7';
-
-    if (hashHex === correctHash) {
-        document.getElementById('loginOverlay').style.display = 'none';
-        document.getElementById('content').style.display = 'block';
-    } else {
-        document.getElementById('loginError').style.display = 'block';
-        document.getElementById('passwordInput').value = '';
-    }
-}
-
 function replaySection(sectionId) {
     var section = document.getElementById(sectionId);
     var iframes = section.querySelectorAll('iframe');
